@@ -1,0 +1,5 @@
+//Persistence
+Install-Package Microsoft.EntityFrameworkCore.Tools -Version 6.0.18
+
+//WebAPI
+Install-Package Microsoft.EntityFrameworkCore.Design -Version 6.0.18
