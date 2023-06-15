@@ -10,6 +10,7 @@ builder.Services.ConfigureApplication();
 
 builder.Services.ConfigureApiBehavior();
 builder.Services.ConfigureCorsPolicy();
+builder.Services.ConfigureSwaggerServices();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -25,5 +26,7 @@ app.UseSwagger();
 app.UseSwaggerUI();
 app.UseErrorHandler();
 app.UseCors();
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
 app.Run();
