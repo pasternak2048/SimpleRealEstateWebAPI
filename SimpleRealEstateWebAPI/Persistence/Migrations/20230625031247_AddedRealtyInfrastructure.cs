@@ -13,7 +13,7 @@ namespace Persistence.Migrations
                 collation: "SQL_Latin1_General_CP1_CI_AS");
 
             migrationBuilder.CreateTable(
-                name: "HeatingType",
+                name: "HeatingTypes",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false),
@@ -21,11 +21,11 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_HeatingType", x => x.ID);
+                    table.PrimaryKey("PK_HeatingTypes", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
-                name: "LocationType",
+                name: "LocationTypes",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false),
@@ -33,11 +33,11 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LocationType", x => x.ID);
+                    table.PrimaryKey("PK_LocationTypes", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
-                name: "PlanningType",
+                name: "PlanningTypes",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false),
@@ -45,11 +45,11 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PlanningType", x => x.ID);
+                    table.PrimaryKey("PK_PlanningTypes", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
-                name: "RealtyType",
+                name: "RealtyStatuses",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false),
@@ -57,11 +57,11 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RealtyType", x => x.ID);
+                    table.PrimaryKey("PK_RealtyStatuses", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
-                name: "WallType",
+                name: "RealtyTypes",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false),
@@ -69,11 +69,23 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WallType", x => x.ID);
+                    table.PrimaryKey("PK_RealtyTypes", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Location",
+                name: "WallTypes",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WallTypes", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Locations",
                 columns: table => new
                 {
                     ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -86,37 +98,37 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Location", x => x.ID);
+                    table.PrimaryKey("PK_Locations", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Location_Location_CityAreaId",
+                        name: "FK_Locations_Locations_CityAreaId",
                         column: x => x.CityAreaId,
-                        principalTable: "Location",
+                        principalTable: "Locations",
                         principalColumn: "ID");
                     table.ForeignKey(
-                        name: "FK_Location_Location_CityId",
+                        name: "FK_Locations_Locations_CityId",
                         column: x => x.CityId,
-                        principalTable: "Location",
+                        principalTable: "Locations",
                         principalColumn: "ID");
                     table.ForeignKey(
-                        name: "FK_Location_Location_DistrictId",
+                        name: "FK_Locations_Locations_DistrictId",
                         column: x => x.DistrictId,
-                        principalTable: "Location",
+                        principalTable: "Locations",
                         principalColumn: "ID");
                     table.ForeignKey(
-                        name: "FK_Location_Location_RegionId",
+                        name: "FK_Locations_Locations_RegionId",
                         column: x => x.RegionId,
-                        principalTable: "Location",
+                        principalTable: "Locations",
                         principalColumn: "ID");
                     table.ForeignKey(
-                        name: "FK_Location_LocationType_LocationTypeId",
+                        name: "FK_Locations_LocationTypes_LocationTypeId",
                         column: x => x.LocationTypeId,
-                        principalTable: "LocationType",
+                        principalTable: "LocationTypes",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Realty",
+                name: "Realties",
                 columns: table => new
                 {
                     ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -131,7 +143,7 @@ namespace Persistence.Migrations
                     RoomCount = table.Column<int>(type: "int", nullable: false),
                     BathCount = table.Column<int>(type: "int", nullable: false),
                     BuildDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsVerified = table.Column<bool>(type: "bit", nullable: false),
+                    RealtyStatusId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -139,34 +151,40 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Realty", x => x.ID);
+                    table.PrimaryKey("PK_Realties", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Realty_AspNetUsers_CreatedById",
+                        name: "FK_Realties_AspNetUsers_CreatedById",
                         column: x => x.CreatedById,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Realty_AspNetUsers_ModifiedById",
+                        name: "FK_Realties_AspNetUsers_ModifiedById",
                         column: x => x.ModifiedById,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Realty_Location_LocationId",
+                        name: "FK_Realties_Locations_LocationId",
                         column: x => x.LocationId,
-                        principalTable: "Location",
+                        principalTable: "Locations",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Realty_RealtyType_RealtyTypeId",
+                        name: "FK_Realties_RealtyStatuses_RealtyStatusId",
+                        column: x => x.RealtyStatusId,
+                        principalTable: "RealtyStatuses",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Realties_RealtyTypes_RealtyTypeId",
                         column: x => x.RealtyTypeId,
-                        principalTable: "RealtyType",
+                        principalTable: "RealtyTypes",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "RealtyHeatingType",
+                name: "RealtyHeatingTypes",
                 columns: table => new
                 {
                     RealtyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -174,23 +192,23 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RealtyHeatingType", x => new { x.RealtyId, x.HeatingTypeId });
+                    table.PrimaryKey("PK_RealtyHeatingTypes", x => new { x.RealtyId, x.HeatingTypeId });
                     table.ForeignKey(
-                        name: "FK_RealtyHeatingType_HeatingType_HeatingTypeId",
+                        name: "FK_RealtyHeatingTypes_HeatingTypes_HeatingTypeId",
                         column: x => x.HeatingTypeId,
-                        principalTable: "HeatingType",
+                        principalTable: "HeatingTypes",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_RealtyHeatingType_Realty_RealtyId",
+                        name: "FK_RealtyHeatingTypes_Realties_RealtyId",
                         column: x => x.RealtyId,
-                        principalTable: "Realty",
+                        principalTable: "Realties",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "RealtyPlanningType",
+                name: "RealtyPlanningTypes",
                 columns: table => new
                 {
                     RealtyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -198,23 +216,23 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RealtyPlanningType", x => new { x.RealtyId, x.PlanningTypeId });
+                    table.PrimaryKey("PK_RealtyPlanningTypes", x => new { x.RealtyId, x.PlanningTypeId });
                     table.ForeignKey(
-                        name: "FK_RealtyPlanningType_PlanningType_PlanningTypeId",
+                        name: "FK_RealtyPlanningTypes_PlanningTypes_PlanningTypeId",
                         column: x => x.PlanningTypeId,
-                        principalTable: "PlanningType",
+                        principalTable: "PlanningTypes",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_RealtyPlanningType_Realty_RealtyId",
+                        name: "FK_RealtyPlanningTypes_Realties_RealtyId",
                         column: x => x.RealtyId,
-                        principalTable: "Realty",
+                        principalTable: "Realties",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "RealtyWallType",
+                name: "RealtyWallTypes",
                 columns: table => new
                 {
                     RealtyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -222,113 +240,121 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RealtyWallType", x => new { x.RealtyId, x.WallTypeId });
+                    table.PrimaryKey("PK_RealtyWallTypes", x => new { x.RealtyId, x.WallTypeId });
                     table.ForeignKey(
-                        name: "FK_RealtyWallType_Realty_RealtyId",
+                        name: "FK_RealtyWallTypes_Realties_RealtyId",
                         column: x => x.RealtyId,
-                        principalTable: "Realty",
+                        principalTable: "Realties",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_RealtyWallType_WallType_WallTypeId",
+                        name: "FK_RealtyWallTypes_WallTypes_WallTypeId",
                         column: x => x.WallTypeId,
-                        principalTable: "WallType",
+                        principalTable: "WallTypes",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Location_CityAreaId",
-                table: "Location",
+                name: "IX_Locations_CityAreaId",
+                table: "Locations",
                 column: "CityAreaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Location_CityId",
-                table: "Location",
+                name: "IX_Locations_CityId",
+                table: "Locations",
                 column: "CityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Location_DistrictId",
-                table: "Location",
+                name: "IX_Locations_DistrictId",
+                table: "Locations",
                 column: "DistrictId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Location_LocationTypeId",
-                table: "Location",
+                name: "IX_Locations_LocationTypeId",
+                table: "Locations",
                 column: "LocationTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Location_RegionId",
-                table: "Location",
+                name: "IX_Locations_RegionId",
+                table: "Locations",
                 column: "RegionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Realty_CreatedById",
-                table: "Realty",
+                name: "IX_Realties_CreatedById",
+                table: "Realties",
                 column: "CreatedById");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Realty_LocationId",
-                table: "Realty",
+                name: "IX_Realties_LocationId",
+                table: "Realties",
                 column: "LocationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Realty_ModifiedById",
-                table: "Realty",
+                name: "IX_Realties_ModifiedById",
+                table: "Realties",
                 column: "ModifiedById");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Realty_RealtyTypeId",
-                table: "Realty",
+                name: "IX_Realties_RealtyStatusId",
+                table: "Realties",
+                column: "RealtyStatusId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Realties_RealtyTypeId",
+                table: "Realties",
                 column: "RealtyTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RealtyHeatingType_HeatingTypeId",
-                table: "RealtyHeatingType",
+                name: "IX_RealtyHeatingTypes_HeatingTypeId",
+                table: "RealtyHeatingTypes",
                 column: "HeatingTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RealtyPlanningType_PlanningTypeId",
-                table: "RealtyPlanningType",
+                name: "IX_RealtyPlanningTypes_PlanningTypeId",
+                table: "RealtyPlanningTypes",
                 column: "PlanningTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RealtyWallType_WallTypeId",
-                table: "RealtyWallType",
+                name: "IX_RealtyWallTypes_WallTypeId",
+                table: "RealtyWallTypes",
                 column: "WallTypeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "RealtyHeatingType");
+                name: "RealtyHeatingTypes");
 
             migrationBuilder.DropTable(
-                name: "RealtyPlanningType");
+                name: "RealtyPlanningTypes");
 
             migrationBuilder.DropTable(
-                name: "RealtyWallType");
+                name: "RealtyWallTypes");
 
             migrationBuilder.DropTable(
-                name: "HeatingType");
+                name: "HeatingTypes");
 
             migrationBuilder.DropTable(
-                name: "PlanningType");
+                name: "PlanningTypes");
 
             migrationBuilder.DropTable(
-                name: "Realty");
+                name: "Realties");
 
             migrationBuilder.DropTable(
-                name: "WallType");
+                name: "WallTypes");
 
             migrationBuilder.DropTable(
-                name: "Location");
+                name: "Locations");
 
             migrationBuilder.DropTable(
-                name: "RealtyType");
+                name: "RealtyStatuses");
 
             migrationBuilder.DropTable(
-                name: "LocationType");
+                name: "RealtyTypes");
+
+            migrationBuilder.DropTable(
+                name: "LocationTypes");
 
             migrationBuilder.AlterDatabase(
                 oldCollation: "SQL_Latin1_General_CP1_CI_AS");
