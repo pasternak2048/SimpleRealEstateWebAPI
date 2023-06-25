@@ -4,10 +4,29 @@ using Persistence.Context;
 
 namespace Persistence.Repositories
 {
-    public class RealtyRepository : BaseRepository<Realty>, IRealtyRepository
+    public class RealtyRepository : IRealtyRepository
     {
-        public RealtyRepository(DataContext context) : base(context)
+        protected readonly DataContext Context;
+
+        public RealtyRepository(DataContext context)
         {
+            Context = context;
+        }
+
+        public void Create(Realty entity)
+        {
+            Context.Add(entity);
+        }
+
+        public void Update(Realty entity)
+        {
+            Context.Update(entity);
+        }
+
+        public void Delete(Realty entity)
+        {
+            entity.IsDeleted = true;
+            Context.Update(entity);
         }
     }
 }

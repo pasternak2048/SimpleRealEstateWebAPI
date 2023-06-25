@@ -5,7 +5,6 @@ namespace Application.Common.Interfaces
 {
     public interface IApplicationDbContext
     {
-        DbSet<User> OldUsers { get; }
         DbSet<HeatingType> HeatingTypes { get; }
         DbSet<Location> Locations { get; }
         DbSet<LocationType> LocationTypes { get; }

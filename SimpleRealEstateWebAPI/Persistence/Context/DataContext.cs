@@ -13,8 +13,6 @@ namespace Persistence.Context
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
         }
-
-        public DbSet<User> OldUsers { get; set; }
         public DbSet<HeatingType> HeatingTypes { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<LocationType> LocationTypes { get; set; }
