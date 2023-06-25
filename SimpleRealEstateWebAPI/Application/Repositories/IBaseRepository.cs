@@ -2,7 +2,7 @@
 
 namespace Application.Repositories
 {
-    public interface IBaseRepository<T> where T : BaseEntity
+    public interface IBaseRepository<T> where T : AuditableEntity
     {
         void Create(T entity);
         void Update(T entity);

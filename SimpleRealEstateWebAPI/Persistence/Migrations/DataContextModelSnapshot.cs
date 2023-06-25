@@ -34,7 +34,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("HeatingTypes");
+                    b.ToTable("HeatingTypes", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Location", b =>
@@ -74,7 +74,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("RegionId");
 
-                    b.ToTable("Locations");
+                    b.ToTable("Locations", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.LocationType", b =>
@@ -88,7 +88,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("LocationTypes");
+                    b.ToTable("LocationTypes", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.PlanningType", b =>
@@ -102,7 +102,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PlanningTypes");
+                    b.ToTable("PlanningTypes", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Realty", b =>
@@ -172,7 +172,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("RealtyTypeId");
 
-                    b.ToTable("Realties");
+                    b.ToTable("Realties", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.RealtyHeatingType", b =>
@@ -187,7 +187,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("HeatingTypeId");
 
-                    b.ToTable("RealtyHeatingTypes");
+                    b.ToTable("RealtyHeatingTypes", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.RealtyPlanningType", b =>
@@ -202,7 +202,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("PlanningTypeId");
 
-                    b.ToTable("RealtyPlanningTypes");
+                    b.ToTable("RealtyPlanningTypes", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.RealtyStatus", b =>
@@ -216,7 +216,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RealtyStatuses");
+                    b.ToTable("RealtyStatuses", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.RealtyType", b =>
@@ -230,7 +230,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RealtyTypes");
+                    b.ToTable("RealtyTypes", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.RealtyWallType", b =>
@@ -245,7 +245,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("WallTypeId");
 
-                    b.ToTable("RealtyWallTypes");
+                    b.ToTable("RealtyWallTypes", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
@@ -271,7 +271,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("OldUsers");
+                    b.ToTable("OldUsers", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.WallType", b =>
@@ -285,7 +285,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("WallTypes");
+                    b.ToTable("WallTypes", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Identity.AppRole", b =>

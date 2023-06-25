@@ -2,7 +2,7 @@
 
 namespace Domain.Entities
 {
-    public sealed class User : BaseEntity
+    public sealed class User : AuditableEntity
     {
         public string Email { get; set; }
         public string Name { get; set; }

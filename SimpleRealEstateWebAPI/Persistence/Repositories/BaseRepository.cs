@@ -5,7 +5,7 @@ using Persistence.Context;
 
 namespace Persistence.Repositories
 {
-    public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
+    public class BaseRepository<T> : IBaseRepository<T> where T : AuditableEntity
     {
         protected readonly DataContext Context;
 
@@ -26,7 +26,7 @@ namespace Persistence.Repositories
 
         public void Delete(T entity)
         {
-            entity.DateCreated = DateTimeOffset.UtcNow;
+            entity.IsDeleted = true;
             Context.Update(entity);
         }
 
