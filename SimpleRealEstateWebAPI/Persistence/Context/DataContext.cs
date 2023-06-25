@@ -15,6 +15,17 @@ namespace Persistence.Context
         }
 
         public DbSet<User> OldUsers { get; set; }
+        public DbSet<HeatingType> HeatingTypes { get; set; }
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<LocationType> LocationTypes { get; set; }
+        public DbSet<PlanningType> PlanningTypes { get; set; }
+        public DbSet<Realty> Realties { get; set; }
+        public DbSet<RealtyHeatingType> RealtyHeatingTypes { get; set; }
+        public DbSet<RealtyPlanningType> RealtyPlanningTypes { get; set; }
+        public DbSet<RealtyStatus> RealtyStatuses { get; set; }
+        public DbSet<RealtyType> RealtyTypes { get; set; }
+        public DbSet<RealtyWallType> RealtyWallTypes { get; set; }
+        public DbSet<WallType> WallTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

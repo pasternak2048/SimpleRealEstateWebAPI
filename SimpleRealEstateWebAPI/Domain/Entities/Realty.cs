@@ -24,10 +24,11 @@ namespace Domain.Entities
         public int RoomCount { get; set; }
         public int BathCount { get; set; }
         public DateTime BuildDate { get; set; }
-        public bool IsVerified { get; set; }
+        public RealtyStatusEnum RealtyStatusId { get; set; }
 
         public virtual RealtyType RealtyType { get; set; }
         public virtual Location Location { get; set; }
+        public virtual RealtyStatus RealtyStatus { get; set; }
         public virtual ICollection<RealtyPlanningType> RealtyPlanningTypes { get; set; }
         public virtual ICollection<RealtyHeatingType> RealtyHeatingTypes { get; set; }
         public virtual ICollection<RealtyWallType> RealtyWallTypes { get; set; }
