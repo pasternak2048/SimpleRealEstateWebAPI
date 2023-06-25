@@ -14,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Persistence.Services;
 using Microsoft.AspNetCore.Http;
+using Persistence.Interceptors;
 
 namespace Persistence
 {
@@ -48,6 +49,8 @@ namespace Persistence
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<ICurrentUserService, CurrentUserService>();
+            services.AddScoped<AuditableEntityInterceptor>();
+            services.AddHttpContextAccessor();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Application.Common.Interfaces;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
+using System.Security.Principal;
 
 namespace Persistence.Services
 {
@@ -13,9 +14,9 @@ namespace Persistence.Services
         }
 
         public Guid? UserId =>
-            Guid.TryParse(_httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier),
+            Guid.TryParse(_httpContextAccessor.HttpContext?.User?.FindFirstValue("Id"),
                 out var result)
                 ? result
-                : default(Guid?);
+                : default(Guid?); 
     }
 }

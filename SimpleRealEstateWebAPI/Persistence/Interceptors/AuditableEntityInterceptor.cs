@@ -26,7 +26,6 @@ namespace Persistence.Interceptors
                     case EntityState.Added:
                         entry.Entity.CreatedById = _currentUserService.UserId.Value;
                         entry.Entity.CreatedAt = DateTime.UtcNow;
-                        entry.Entity.ModifiedAt = DateTime.UtcNow;
                         break;
 
                     case EntityState.Modified:

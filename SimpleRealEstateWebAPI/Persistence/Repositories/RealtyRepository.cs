@@ -1,5 +1,6 @@
 ﻿using Application.Repositories;
 using Domain.Entities;
+using Domain.Enums;
 using Persistence.Context;
 
 namespace Persistence.Repositories
@@ -25,7 +26,7 @@ namespace Persistence.Repositories
 
         public void Delete(Realty entity)
         {
-            entity.IsDeleted = true;
+            entity.RealtyStatusId = RealtyStatusEnum.Deleted;
             Context.Update(entity);
         }
     }
