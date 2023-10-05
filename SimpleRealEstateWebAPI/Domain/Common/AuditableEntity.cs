@@ -6,6 +6,6 @@
         public Guid CreatedById { get; set; }
 
         public DateTime? ModifiedAt { get; set; }
-        public Guid? ModifiedById { get; set; }
+        public Guid? ModifiedById { get; set; }  
     }
 }

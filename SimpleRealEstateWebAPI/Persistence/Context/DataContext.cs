@@ -4,17 +4,20 @@ using Domain.Entities;
 using Domain.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Persistence.Interceptors;
 using System.Reflection;
 
 namespace Persistence.Context
 {
     public class DataContext : IdentityDbContext<AppUser, AppRole, Guid>, IApplicationDbContext
     {
-        public DataContext(DbContextOptions<DataContext> options) : base(options)
+        private readonly AuditableEntityInterceptor _auditableEntityInterceptor;
+        public DataContext(DbContextOptions<DataContext> options,
+            AuditableEntityInterceptor auditableEntityInterceptor) : base(options)
         {
+            _auditableEntityInterceptor = auditableEntityInterceptor;
         }
-
-        public DbSet<User> OldUsers { get; set; }
         public DbSet<HeatingType> HeatingTypes { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<LocationType> LocationTypes { get; set; }
@@ -33,6 +36,12 @@ namespace Persistence.Context
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             CreateForeignKeysForAuditableEntities(modelBuilder);
             base.OnModelCreating(modelBuilder);
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.AddInterceptors(_auditableEntityInterceptor);
+            base.OnConfiguring(optionsBuilder);
         }
 
         private void CreateForeignKeysForAuditableEntities(ModelBuilder modelBuilder)

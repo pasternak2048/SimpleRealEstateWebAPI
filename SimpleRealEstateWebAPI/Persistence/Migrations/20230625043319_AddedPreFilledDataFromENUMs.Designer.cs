@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence.Context;
 
@@ -11,9 +12,10 @@ using Persistence.Context;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230625043319_AddedPreFilledDataFromENUMs")]
+    partial class AddedPreFilledDataFromENUMs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +36,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("HeatingTypes", (string)null);
+                    b.ToTable("HeatingTypes");
 
                     b.HasData(
                         new
@@ -106,7 +108,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("RegionId");
 
-                    b.ToTable("Locations", (string)null);
+                    b.ToTable("Locations");
                 });
 
             modelBuilder.Entity("Domain.Entities.LocationType", b =>
@@ -120,7 +122,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("LocationTypes", (string)null);
+                    b.ToTable("LocationTypes");
 
                     b.HasData(
                         new
@@ -166,7 +168,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PlanningTypes", (string)null);
+                    b.ToTable("PlanningTypes");
 
                     b.HasData(
                         new
@@ -268,7 +270,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("RealtyTypeId");
 
-                    b.ToTable("Realties", (string)null);
+                    b.ToTable("Realties");
                 });
 
             modelBuilder.Entity("Domain.Entities.RealtyHeatingType", b =>
@@ -283,7 +285,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("HeatingTypeId");
 
-                    b.ToTable("RealtyHeatingTypes", (string)null);
+                    b.ToTable("RealtyHeatingTypes");
                 });
 
             modelBuilder.Entity("Domain.Entities.RealtyPlanningType", b =>
@@ -298,7 +300,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("PlanningTypeId");
 
-                    b.ToTable("RealtyPlanningTypes", (string)null);
+                    b.ToTable("RealtyPlanningTypes");
                 });
 
             modelBuilder.Entity("Domain.Entities.RealtyStatus", b =>
@@ -312,7 +314,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RealtyStatuses", (string)null);
+                    b.ToTable("RealtyStatuses");
 
                     b.HasData(
                         new
@@ -353,7 +355,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RealtyTypes", (string)null);
+                    b.ToTable("RealtyTypes");
 
                     b.HasData(
                         new
@@ -400,7 +402,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("WallTypeId");
 
-                    b.ToTable("RealtyWallTypes", (string)null);
+                    b.ToTable("RealtyWallTypes");
                 });
 
             modelBuilder.Entity("Domain.Entities.WallType", b =>
@@ -414,7 +416,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("WallTypes", (string)null);
+                    b.ToTable("WallTypes");
 
                     b.HasData(
                         new

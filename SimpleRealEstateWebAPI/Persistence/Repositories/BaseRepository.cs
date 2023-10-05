@@ -26,7 +26,7 @@ namespace Persistence.Repositories
 
         public void Delete(T entity)
         {
-            entity.DateCreated = DateTimeOffset.UtcNow;
+            //entity.IsDeleted = true;
             Context.Update(entity);
         }
 
