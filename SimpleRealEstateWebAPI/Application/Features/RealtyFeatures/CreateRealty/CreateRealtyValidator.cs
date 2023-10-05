@@ -6,8 +6,8 @@ namespace Application.Features.RealtyFeatures.CreateRealty
     {
         public CreateRealtyValidator()
         {
-            RuleFor(x => x.Description).NotEmpty();
-            RuleFor(x => x.LocationId).NotEmpty();
+            RuleFor(x => x.Description).NotEmpty().WithMessage("Description mustn`t be empty.");
+            RuleFor(x => x.LocationId).NotEmpty().WithMessage("LocationId mustn`t be empty.");
         }
     }
 }

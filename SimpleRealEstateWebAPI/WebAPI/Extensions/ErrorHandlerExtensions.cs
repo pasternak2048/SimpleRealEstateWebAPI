@@ -30,7 +30,7 @@ namespace WebAPI.Extensions
                     var errorResponse = new
                     {
                         statusCode = context.Response.StatusCode,
-                        message = contextFeature.Error.GetBaseException().Message
+                        message = contextFeature.Error.GetBaseException().Message,
                     };
 
                     await context.Response.WriteAsync(JsonSerializer.Serialize(errorResponse));
