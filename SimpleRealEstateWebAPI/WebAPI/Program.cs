@@ -1,6 +1,7 @@
 using Application;
 using Persistence;
 using Persistence.Context;
+using System.Reflection;
 using WebAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,8 @@ builder.Services.ConfigureApplication();
 builder.Services.ConfigureApiBehavior();
 builder.Services.ConfigureCorsPolicy();
 builder.Services.ConfigureSwaggerServices();
+
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

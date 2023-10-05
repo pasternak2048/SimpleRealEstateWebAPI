@@ -16,7 +16,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("Realty")]
-        public async Task<ActionResult<CreateRealtyResponse>> Create(CreateRealtyRequest request, CancellationToken cancellationToken) 
+        public async Task<ActionResult<CreateRealtyResponse>> Create([FromQuery] CreateRealtyRequest request, CancellationToken cancellationToken) 
         {
             var response = await _mediator.Send(request, cancellationToken);
             return Ok(response);
