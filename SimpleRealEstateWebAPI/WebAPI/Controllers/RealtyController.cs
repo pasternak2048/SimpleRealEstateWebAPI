@@ -1,4 +1,6 @@
-﻿using Application.Features.RealtyFeatures.CreateRealty;
+﻿using Application.Common.Models;
+using Application.Features.RealtyFeatures.CreateRealty;
+using Application.Features.RealtyFeatures.GetRealties;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,6 +21,14 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<CreateRealtyResponse>> Create([FromQuery] CreateRealtyRequest request, CancellationToken cancellationToken) 
         {
             var response = await _mediator.Send(request, cancellationToken);
+            return Ok(response);
+        }
+
+        [HttpGet("Realties")]
+
+        public async Task<ActionResult<PaginatedList<GetRealtiesResponse>>> GetRealties(GetRealtiesRequest request)
+        {
+            var response = await _mediator.Send(request);
             return Ok(response);
         }
     }
