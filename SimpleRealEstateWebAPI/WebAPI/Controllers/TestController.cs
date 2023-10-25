@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Application.Common.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Server.IIS.Core;
 
 namespace WebAPI.Controllers
 {
@@ -18,5 +20,13 @@ namespace WebAPI.Controllers
         {
             return Ok();
         }
+
+        [AllowAnonymous]
+        [HttpGet("TestNotFound")]
+        public async Task<ActionResult> TestNotFound()
+        {
+            throw new NotFoundException("Not found test");
+        }
+
     }
 }
