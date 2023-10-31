@@ -1,7 +1,4 @@
-﻿using Application.Features.RealtyFeatures.CreateRealty;
-using Application.Repositories;
-using Domain.Entities;
-using MediatR;
+﻿using MediatR;
 
 namespace Application.Features.RealtyFeatures.EditRealty
 {

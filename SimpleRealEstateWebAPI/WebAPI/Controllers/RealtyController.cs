@@ -24,9 +24,9 @@ namespace WebAPI.Controllers
             return Ok(response);
         }
 
+        [AllowAnonymous]
         [HttpGet("Realties")]
-
-        public async Task<ActionResult<PaginatedList<GetRealtiesResponse>>> GetRealties(GetRealtiesRequest request)
+        public async Task<ActionResult<PaginatedList<GetRealtiesResponse>>> GetRealties([FromQuery] GetRealtiesRequest request)
         {
             var response = await _mediator.Send(request);
             return Ok(response);
