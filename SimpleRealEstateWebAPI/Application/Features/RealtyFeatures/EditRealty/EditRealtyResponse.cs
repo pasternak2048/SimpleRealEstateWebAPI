@@ -14,7 +14,7 @@ namespace Application.Features.RealtyFeatures.EditRealty
         public double Area { get; set; }
         public int RoomCount { get; set; }
         public int BathCount { get; set; }
-        public DateTime BuildDate { get; set; }
+        public DateTimeOffset BuildDate { get; set; }
         public RealtyStatusEnum RealtyStatusId { get; set; }
         public List<int> RealtyPlanningTypes { get; set; }
         public List<int> RealtyHeatingTypes { get; set; }
