@@ -2,6 +2,7 @@ using Application;
 using Persistence;
 using Persistence.Context;
 using System.Reflection;
+using System.Text.Json.Serialization;
 using WebAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,7 +16,8 @@ builder.Services.ConfigureSwaggerServices();
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
