@@ -4,8 +4,9 @@ using MediatR;
 
 namespace Application.Features.RealtyFeatures.EditRealty
 {
-    public class EditRealtyRequest : IRequest<EditRealtyResponse>
+    public class EditRealtyRequest : IRequest
     {
+        public Guid Id { get; set; }
         public string Description { get; set; }
         public RealtyTypeEnum RealtyTypeId { get; set; }
         public Guid LocationId { get; set; }
@@ -17,8 +18,10 @@ namespace Application.Features.RealtyFeatures.EditRealty
         public int? RoomCount { get; set; }
         public int? BathCount { get; set; }
         public DateTimeOffset? BuildDate { get; set; }
-        public List<PlanningTypeEnum> RealtyPlanningTypes { get; set; }
-        public List<HeatingTypeEnum> RealtyHeatingTypes { get; set; }
-        public List<WallTypeEnum> RealtyWallTypes { get; set; }
+#nullable enable
+        public List<int>? RealtyPlanningTypes { get; set; }
+        public List<int>? RealtyHeatingTypes { get; set; }
+        public List<int>? RealtyWallTypes { get; set; }
+#nullable disable
     }
 }

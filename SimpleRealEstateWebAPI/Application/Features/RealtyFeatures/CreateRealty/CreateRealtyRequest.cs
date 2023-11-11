@@ -17,8 +17,10 @@ namespace Application.Features.RealtyFeatures.CreateRealty
         public int? RoomCount { get; set; }
         public int? BathCount { get; set; }
         public DateTimeOffset? BuildDate { get; set; }
-        public List<int> RealtyPlanningTypes { get; set; }
-        public List<int> RealtyHeatingTypes { get; set; }
-        public List<int> RealtyWallTypes { get; set; }
+#nullable enable
+        public List<int>? RealtyPlanningTypes { get; set; }
+        public List<int>? RealtyHeatingTypes { get; set; }
+        public List<int>? RealtyWallTypes { get; set; }
+#nullable disable
     }
 }

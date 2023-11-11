@@ -2,6 +2,7 @@
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.RealtyFeatures.CreateRealty
 {
@@ -20,7 +21,7 @@ namespace Application.Features.RealtyFeatures.CreateRealty
         {
             var realty = _mapper.Map<Realty>(request);
 
-            _context.Realties.Add(realty);
+            await _context.Realties.AddAsync(realty);
 
             await _context.SaveChangesAsync(cancellationToken);
 
