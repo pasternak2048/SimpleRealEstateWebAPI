@@ -14,8 +14,8 @@ namespace Persistence.Configurations
             builder.HasData(
                 new LocationType() { Id = LocationTypeEnum.None, Name = "None" },
                 new LocationType() { Id = LocationTypeEnum.Street, Name = "Street" },
-                new LocationType() { Id = LocationTypeEnum.City, Name = "City" },
                 new LocationType() { Id = LocationTypeEnum.CityArea, Name = "CityArea" },
+                new LocationType() { Id = LocationTypeEnum.City, Name = "City" },
                 new LocationType() { Id = LocationTypeEnum.District, Name = "District" },
                 new LocationType() { Id = LocationTypeEnum.Region, Name = "Region" }
                 );

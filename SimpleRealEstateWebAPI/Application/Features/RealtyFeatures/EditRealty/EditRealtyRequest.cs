@@ -2,10 +2,11 @@
 using Domain.Enums;
 using MediatR;
 
-namespace Application.Features.RealtyFeatures.CreateRealty
+namespace Application.Features.RealtyFeatures.EditRealty
 {
-    public class CreateRealtyRequest : IRequest<CreateRealtyResponse>
+    public class EditRealtyRequest : IRequest
     {
+        public Guid Id { get; set; }
         public string Description { get; set; }
         public RealtyTypeEnum RealtyTypeId { get; set; }
         public Guid LocationId { get; set; }

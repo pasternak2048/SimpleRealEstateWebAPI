@@ -1,6 +1,6 @@
 ﻿namespace Domain.Enums
 {
-    public enum LocationTypeEnum
+    public enum LocationTypeEnum : int
     {
         None = 0,
         Street = 1,

@@ -30,6 +30,8 @@ namespace Persistence.Context
         public DbSet<RealtyWallType> RealtyWallTypes { get; set; }
         public DbSet<WallType> WallTypes { get; set; }
 
+        public virtual bool AutoDetectChangesEnabled { get; set; } = true;
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
@@ -42,6 +44,7 @@ namespace Persistence.Context
         {
             optionsBuilder.AddInterceptors(_auditableEntityInterceptor);
             base.OnConfiguring(optionsBuilder);
+            optionsBuilder.LogTo(Console.WriteLine);
         }
 
         private void CreateForeignKeysForAuditableEntities(ModelBuilder modelBuilder)

@@ -16,5 +16,7 @@ namespace Application.Common.Interfaces
         DbSet<RealtyType> RealtyTypes { get; }
         DbSet<RealtyWallType> RealtyWallTypes { get; }
         DbSet<WallType> WallTypes { get; }
+
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

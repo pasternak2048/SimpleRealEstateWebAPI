@@ -1,6 +1,6 @@
 ﻿namespace Domain.Enums
 {
-    public enum HeatingTypeEnum
+    public enum HeatingTypeEnum : int
     {
         None = 0,
         Electric = 1,

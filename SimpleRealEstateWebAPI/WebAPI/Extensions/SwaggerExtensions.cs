@@ -1,4 +1,5 @@
 ﻿using Microsoft.OpenApi.Models;
+using WebAPI.Filters;
 
 namespace WebAPI.Extensions
 {
@@ -34,6 +35,8 @@ namespace WebAPI.Extensions
                         new string[] {}
                     }
                 });
+
+                c.SchemaFilter<EnumSchemaFilter>();
             });
         }
     }
