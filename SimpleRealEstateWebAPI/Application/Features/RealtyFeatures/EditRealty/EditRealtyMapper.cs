@@ -8,7 +8,6 @@ namespace Application.Features.RealtyFeatures.EditRealty
     {
         public EditRealtyMapper()
         {
-           
         }
     }
 }

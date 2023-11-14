@@ -60,10 +60,6 @@ namespace Application.Features.RealtyFeatures.EditRealty
             realty.BathCount = request.BathCount;
             realty.BuildDate = request.BuildDate;
 
-            realty.RealtyPlanningTypes = _mapper.Map<List<RealtyPlanningType>>(request.RealtyPlanningTypes.Distinct());
-            realty.RealtyHeatingTypes = _mapper.Map<List<RealtyHeatingType>>(request.RealtyHeatingTypes.Distinct());
-            realty.RealtyWallTypes = _mapper.Map<List<RealtyWallType>>(request.RealtyWallTypes.Distinct());
-
             //_context.Realties.Update(realty);
 
             await _context.SaveChangesAsync(cancellationToken);
