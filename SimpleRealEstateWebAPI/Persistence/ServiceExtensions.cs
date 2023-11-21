@@ -45,6 +45,7 @@ namespace Persistence
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<ICurrentUserService, CurrentUserService>();
+            services.AddSingleton<ISqlConnectionService, SqlConnectionService>();
             services.AddScoped<AuditableEntityInterceptor>();
             services.AddHttpContextAccessor();
         }
