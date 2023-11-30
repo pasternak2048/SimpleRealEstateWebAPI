@@ -17,6 +17,9 @@ namespace Persistence.Services
             Guid.TryParse(_httpContextAccessor.HttpContext?.User?.FindFirstValue("Id"),
                 out var result)
                 ? result
-                : default(Guid?); 
+                : default(Guid?);
+
+        public string UserRole =>
+            _httpContextAccessor.HttpContext.User?.FindFirstValue(ClaimTypes.Role);
     }
 }

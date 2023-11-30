@@ -20,7 +20,7 @@ namespace WebAPI.Controllers
             _dataContext = dataContext;
         }
 
-        [HttpPost]
+        [HttpPost("SeedRoles")]
         public async Task<ActionResult> SeedRoles()
         {
             if (!_roleManager.RoleExistsAsync("Client").Result)
@@ -68,6 +68,15 @@ namespace WebAPI.Controllers
                 EmailConfirmed = true
             };
 
+            var user3 = new AppUser()
+            {
+                UserName = "yp@gmail.com",
+                FirstName = "Yurii",
+                LastName = "Pasternak",
+                Email = "yp@gmail.com",
+                EmailConfirmed = true
+            };
+
             var result1 = await _userManager.CreateAsync(user1, "11111111_Aa");
             if (result1.Succeeded)
             {
@@ -80,6 +89,13 @@ namespace WebAPI.Controllers
             {
                 //add this to add role to user
                 await _userManager.AddToRoleAsync(user2, "Superuser");
+            }
+
+            var result3 = await _userManager.CreateAsync(user3, "11111111_Aa");
+            if (result3.Succeeded)
+            {
+                //add this to add role to user
+                await _userManager.AddToRoleAsync(user3, "Client");
             }
 
             return Ok();

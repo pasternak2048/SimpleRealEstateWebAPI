@@ -27,8 +27,10 @@ namespace Application.Features.RealtyFeatures.EditRealty
 
         public async Task<Unit> Handle(EditRealtyRequest request, CancellationToken cancellationToken)
         {
+            var userId = _currentUserService.UserId;
+            var userRole = _currentUserService.UserRole;
+
             var realty = await _context.Realties
-                .Include(x=>x.RealtyPlanningTypes).ThenInclude(y=>y.PlanningType)
                 .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
             if (realty == null)
@@ -36,17 +38,10 @@ namespace Application.Features.RealtyFeatures.EditRealty
                 throw new NotFoundException($"Realty with ID {request.Id} not found.");
             }
 
-
-           // if(realty.CreatedById )
-
-            //signalr
-            //transactions
-            //generic dropdown
-            //redis / memory cache
-            //composite index
-            //dapper
-            //system test / integration test
-
+            if (userRole == "Client" && userId != realty.CreatedById)
+            {
+                throw new UnauthorizedAccessException("Unauthorized.");
+            }
 
             realty.Description = request.Description;
             realty.RealtyTypeId = request.RealtyTypeId;
@@ -59,6 +54,11 @@ namespace Application.Features.RealtyFeatures.EditRealty
             realty.RoomCount = request.RoomCount;
             realty.BathCount = request.BathCount;
             realty.BuildDate = request.BuildDate;
+
+            if (userRole == "Administrator" || userRole == "Superuser")
+            {
+                realty.RealtyStatusId = request.RealtyStatusId;
+            }
 
             //_context.Realties.Update(realty);
 
