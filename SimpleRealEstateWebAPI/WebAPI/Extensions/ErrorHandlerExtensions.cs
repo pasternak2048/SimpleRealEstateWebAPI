@@ -31,6 +31,14 @@ namespace WebAPI.Extensions
                                 break;
                             }
 
+                        case UnauthorizedAccessException:
+                            {
+                                context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                                var exception = (UnauthorizedAccessException)contextFeature.Error;
+                                break;
+                            }
+
+
                         case OperationCanceledException:
                             {
                                 context.Response.StatusCode = (int)HttpStatusCode.ServiceUnavailable;
