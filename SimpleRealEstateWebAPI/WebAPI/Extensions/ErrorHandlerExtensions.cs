@@ -53,6 +53,13 @@ namespace WebAPI.Extensions
                                 break;
                             }
 
+                        case AlreadyExistException:
+                            {
+                                context.Response.StatusCode = 403;
+                                errorDetails = null;
+                                break;
+                            }
+
                         default:
                             {
                                 context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;

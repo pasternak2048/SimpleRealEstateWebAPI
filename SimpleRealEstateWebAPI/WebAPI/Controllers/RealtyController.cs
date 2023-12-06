@@ -2,6 +2,7 @@
 using Application.Features.RealtyFeatures.CreateRealty;
 using Application.Features.RealtyFeatures.EditRealty;
 using Application.Features.RealtyFeatures.GetRealties;
+using Application.Features.RealtyPlanningTypeFeatures.CreateRealtyPlanningType;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -38,6 +39,14 @@ namespace WebAPI.Controllers
         {
             var response = await _mediator.Send(request);
             var a = User;
+            return Ok(response);
+        }
+
+
+        [HttpPost("RealtyPlanningType")]
+        public async Task<ActionResult> CreateRealtyPlanningType([FromQuery] CreateRealtyPlanningTypeRequest request)
+        {
+            var response = await _mediator.Send(request);
             return Ok(response);
         }
     }

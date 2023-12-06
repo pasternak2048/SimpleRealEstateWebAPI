@@ -5,7 +5,6 @@
         Unknown = 0,
         New = 1,
         NonVerified = 2,
-        Verified = 3,
-        Deleted = 4,
+        Verified = 3
     }
 }
