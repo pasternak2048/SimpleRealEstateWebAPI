@@ -3,6 +3,7 @@ using Application.Features.RealtyFeatures.CreateRealty;
 using Application.Features.RealtyFeatures.EditRealty;
 using Application.Features.RealtyFeatures.GetRealties;
 using Application.Features.RealtyPlanningTypeFeatures.CreateRealtyPlanningType;
+using Application.Features.RealtyPlanningTypeFeatures.DeleteRealtyPlanningType;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -45,6 +46,13 @@ namespace WebAPI.Controllers
 
         [HttpPost("RealtyPlanningType")]
         public async Task<ActionResult> CreateRealtyPlanningType([FromQuery] CreateRealtyPlanningTypeRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpDelete("RealtyPlanningType")]
+        public async Task<ActionResult> DeleteRealtyPlanningType([FromQuery] DeleteRealtyPlanningTypeRequest request)
         {
             var response = await _mediator.Send(request);
             return Ok(response);
