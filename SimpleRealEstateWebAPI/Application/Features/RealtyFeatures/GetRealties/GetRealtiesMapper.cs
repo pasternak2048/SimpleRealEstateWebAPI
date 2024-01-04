@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Application.Common.DTOs;
+using AutoMapper;
 using Domain.Entities;
 
 namespace Application.Features.RealtyFeatures.GetRealties
@@ -9,6 +10,8 @@ namespace Application.Features.RealtyFeatures.GetRealties
         {
             CreateMap<GetRealtiesRequest, Realty>().ReverseMap();
             CreateMap<GetRealtiesResponse, Realty>().ReverseMap();
+            CreateMap<RealtyPlanningType, RealtyPlanningTypeDto>();
+            CreateMap<PlanningType, PlanningTypeDto>();
         }
     }
 }

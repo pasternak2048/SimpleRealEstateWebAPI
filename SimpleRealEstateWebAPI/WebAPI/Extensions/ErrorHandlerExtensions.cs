@@ -31,6 +31,14 @@ namespace WebAPI.Extensions
                                 break;
                             }
 
+                        case UnauthorizedAccessException:
+                            {
+                                context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                                var exception = (UnauthorizedAccessException)contextFeature.Error;
+                                break;
+                            }
+
+
                         case OperationCanceledException:
                             {
                                 context.Response.StatusCode = (int)HttpStatusCode.ServiceUnavailable;
@@ -41,6 +49,13 @@ namespace WebAPI.Extensions
                         case NotFoundException:
                             {
                                 context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                                errorDetails = null;
+                                break;
+                            }
+
+                        case AlreadyExistException:
+                            {
+                                context.Response.StatusCode = 403;
                                 errorDetails = null;
                                 break;
                             }

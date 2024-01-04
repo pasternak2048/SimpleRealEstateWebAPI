@@ -15,8 +15,7 @@ namespace Persistence.Configurations
                 new RealtyStatus() { Id = RealtyStatusEnum.Unknown, Name = "Unknown" },
                 new RealtyStatus() { Id = RealtyStatusEnum.New, Name = "New" },
                 new RealtyStatus() { Id = RealtyStatusEnum.NonVerified, Name = "NonVerified" },
-                new RealtyStatus() { Id = RealtyStatusEnum.Verified, Name = "Verified" },
-                new RealtyStatus() { Id = RealtyStatusEnum.Deleted, Name = "Deleted" }
+                new RealtyStatus() { Id = RealtyStatusEnum.Verified, Name = "Verified" }
                 );
         }
     }

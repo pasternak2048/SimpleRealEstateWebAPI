@@ -18,5 +18,6 @@ namespace Application.Features.RealtyFeatures.EditRealty
         public int? RoomCount { get; set; }
         public int? BathCount { get; set; }
         public DateTimeOffset? BuildDate { get; set; }
+        public RealtyStatusEnum RealtyStatusId { get; set; } = RealtyStatusEnum.New;
     }
 }
