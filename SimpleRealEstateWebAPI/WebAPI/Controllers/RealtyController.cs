@@ -6,6 +6,8 @@ using Application.Features.RealtyHeatingTypeFeatures.CreateRealtyHeatingType;
 using Application.Features.RealtyHeatingTypeFeatures.DeleteRealtyHeatingType;
 using Application.Features.RealtyPlanningTypeFeatures.CreateRealtyPlanningType;
 using Application.Features.RealtyPlanningTypeFeatures.DeleteRealtyPlanningType;
+using Application.Features.RealtyWallTypeFeatures.CreateRealtyWallType;
+using Application.Features.RealtyWallTypeFeatures.DeleteRealtyWallType;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -69,6 +71,20 @@ namespace WebAPI.Controllers
 
         [HttpDelete("RealtyHeatingType")]
         public async Task<ActionResult> DeleteRealtyHeatingType([FromQuery] DeleteRealtyHeatingTypeRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpPost("RealtyWallType")]
+        public async Task<ActionResult> CreateRealtyWallType([FromQuery] CreateRealtyWallTypeRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpDelete("RealtyWallType")]
+        public async Task<ActionResult> DeleteRealtyWallType([FromQuery] DeleteRealtyWallTypeRequest request)
         {
             var response = await _mediator.Send(request);
             return Ok(response);
