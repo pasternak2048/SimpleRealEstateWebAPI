@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence.Context;
 
@@ -11,9 +12,10 @@ using Persistence.Context;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230625031247_AddedRealtyInfrastructure")]
+    partial class AddedRealtyInfrastructure
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,39 +36,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("HeatingTypes", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 0,
-                            Name = "None"
-                        },
-                        new
-                        {
-                            Id = 1,
-                            Name = "Electric"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Gas"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "SolidFuel"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Solar"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Geothermal"
-                        });
+                    b.ToTable("HeatingTypes");
                 });
 
             modelBuilder.Entity("Domain.Entities.Location", b =>
@@ -106,7 +76,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("RegionId");
 
-                    b.ToTable("Locations", (string)null);
+                    b.ToTable("Locations");
                 });
 
             modelBuilder.Entity("Domain.Entities.LocationType", b =>
@@ -120,39 +90,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("LocationTypes", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 0,
-                            Name = "None"
-                        },
-                        new
-                        {
-                            Id = 1,
-                            Name = "Street"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "CityArea"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "City"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "District"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Region"
-                        });
+                    b.ToTable("LocationTypes");
                 });
 
             modelBuilder.Entity("Domain.Entities.PlanningType", b =>
@@ -166,39 +104,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PlanningTypes", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 0,
-                            Name = "None"
-                        },
-                        new
-                        {
-                            Id = 1,
-                            Name = "Jacuzzi"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "MultiLevel"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Terrace"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Penthouse"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "WithoutFurniture"
-                        });
+                    b.ToTable("PlanningTypes");
                 });
 
             modelBuilder.Entity("Domain.Entities.Realty", b =>
@@ -208,17 +114,17 @@ namespace Persistence.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("ID");
 
-                    b.Property<double?>("Area")
+                    b.Property<double>("Area")
                         .HasColumnType("float");
 
-                    b.Property<int?>("BathCount")
+                    b.Property<int>("BathCount")
                         .HasColumnType("int");
 
-                    b.Property<DateTimeOffset?>("BuildDate")
-                        .HasColumnType("datetimeoffset");
+                    b.Property<DateTime>("BuildDate")
+                        .HasColumnType("datetime2");
 
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("CreatedById")
                         .HasColumnType("uniqueidentifier");
@@ -226,23 +132,23 @@ namespace Persistence.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Floor")
+                    b.Property<int>("Floor")
                         .HasColumnType("int");
 
-                    b.Property<int?>("FloorCount")
+                    b.Property<int>("FloorCount")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("IsFirstFloor")
+                    b.Property<bool>("IsFirstFloor")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("IsLastFloor")
+                    b.Property<bool>("IsLastFloor")
                         .HasColumnType("bit");
 
                     b.Property<Guid>("LocationId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset?>("ModifiedAt")
-                        .HasColumnType("datetimeoffset");
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid?>("ModifiedById")
                         .HasColumnType("uniqueidentifier");
@@ -253,7 +159,7 @@ namespace Persistence.Migrations
                     b.Property<int>("RealtyTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("RoomCount")
+                    b.Property<int>("RoomCount")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -268,7 +174,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("RealtyTypeId");
 
-                    b.ToTable("Realties", (string)null);
+                    b.ToTable("Realties");
                 });
 
             modelBuilder.Entity("Domain.Entities.RealtyHeatingType", b =>
@@ -283,7 +189,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("HeatingTypeId");
 
-                    b.ToTable("RealtyHeatingTypes", (string)null);
+                    b.ToTable("RealtyHeatingTypes");
                 });
 
             modelBuilder.Entity("Domain.Entities.RealtyPlanningType", b =>
@@ -298,7 +204,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("PlanningTypeId");
 
-                    b.ToTable("RealtyPlanningTypes", (string)null);
+                    b.ToTable("RealtyPlanningTypes");
                 });
 
             modelBuilder.Entity("Domain.Entities.RealtyStatus", b =>
@@ -312,34 +218,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RealtyStatuses", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 0,
-                            Name = "Unknown"
-                        },
-                        new
-                        {
-                            Id = 1,
-                            Name = "New"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "NonVerified"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Verified"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Deleted"
-                        });
+                    b.ToTable("RealtyStatuses");
                 });
 
             modelBuilder.Entity("Domain.Entities.RealtyType", b =>
@@ -353,39 +232,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RealtyTypes", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 0,
-                            Name = "None"
-                        },
-                        new
-                        {
-                            Id = 1,
-                            Name = "Flat"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "House"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Commercial"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Planning"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "PlaceOnly"
-                        });
+                    b.ToTable("RealtyTypes");
                 });
 
             modelBuilder.Entity("Domain.Entities.RealtyWallType", b =>
@@ -400,7 +247,33 @@ namespace Persistence.Migrations
 
                     b.HasIndex("WallTypeId");
 
-                    b.ToTable("RealtyWallTypes", (string)null);
+                    b.ToTable("RealtyWallTypes");
+                });
+
+            modelBuilder.Entity("Domain.Entities.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("DateCreated")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset?>("DateDeleted")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset?>("DateUpdated")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OldUsers");
                 });
 
             modelBuilder.Entity("Domain.Entities.WallType", b =>
@@ -414,29 +287,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("WallTypes", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 0,
-                            Name = "None"
-                        },
-                        new
-                        {
-                            Id = 1,
-                            Name = "Brick"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Concrete"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Wood"
-                        });
+                    b.ToTable("WallTypes");
                 });
 
             modelBuilder.Entity("Domain.Identity.AppRole", b =>

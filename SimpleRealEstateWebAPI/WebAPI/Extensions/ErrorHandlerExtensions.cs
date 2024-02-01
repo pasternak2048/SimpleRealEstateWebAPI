@@ -19,18 +19,60 @@ namespace WebAPI.Extensions
                     context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
                     context.Response.ContentType = "application/json";
 
-                    context.Response.StatusCode = contextFeature.Error switch
+                    var errorDetails = new string[] { };
+
+                    switch (contextFeature.Error)
                     {
-                        BadRequestException => (int)HttpStatusCode.BadRequest,
-                        OperationCanceledException => (int)HttpStatusCode.ServiceUnavailable,
-                        NotFoundException => (int)HttpStatusCode.NotFound,
-                        _ => (int)HttpStatusCode.InternalServerError
-                    };
+                        case BadRequestException:
+                            {
+                                context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                                var exception = (BadRequestException)contextFeature.Error;
+                                errorDetails = exception.Errors;
+                                break;
+                            }
+
+                        case UnauthorizedAccessException:
+                            {
+                                context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                                var exception = (UnauthorizedAccessException)contextFeature.Error;
+                                break;
+                            }
+
+
+                        case OperationCanceledException:
+                            {
+                                context.Response.StatusCode = (int)HttpStatusCode.ServiceUnavailable;
+                                errorDetails = null;
+                                break;
+                            }
+
+                        case NotFoundException:
+                            {
+                                context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                                errorDetails = null;
+                                break;
+                            }
+
+                        case AlreadyExistException:
+                            {
+                                context.Response.StatusCode = 403;
+                                errorDetails = null;
+                                break;
+                            }
+
+                        default:
+                            {
+                                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                                errorDetails = null;
+                                break;
+                            }
+                    }
 
                     var errorResponse = new
                     {
                         statusCode = context.Response.StatusCode,
-                        message = contextFeature.Error.GetBaseException().Message
+                        message = contextFeature.Error.GetBaseException().Message,
+                        errorDetails = errorDetails
                     };
 
                     await context.Response.WriteAsync(JsonSerializer.Serialize(errorResponse));

@@ -1,12 +1,18 @@
 ﻿using Application.Common.Interfaces;
-using Application.Repositories;
+using Application.Common.Interfaces.Authentication;
 using Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Persistence.Authentication;
 using Persistence.Context;
-using Persistence.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Persistence.Services;
+using Microsoft.AspNetCore.Http;
+using Persistence.Interceptors;
 
 namespace Persistence
 {
@@ -24,8 +30,24 @@ namespace Persistence
                 .AddRoleManager<RoleManager<AppRole>>()
                 .AddEntityFrameworkStores<DataContext>();
 
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(opts =>
+                {
+                    opts.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["TokenKey"])),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                    };
+                });
+
+            services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<ICurrentUserService, CurrentUserService>();
+            services.AddSingleton<ISqlConnectionService, SqlConnectionService>();
+            services.AddScoped<AuditableEntityInterceptor>();
+            services.AddHttpContextAccessor();
         }
     }
 }
