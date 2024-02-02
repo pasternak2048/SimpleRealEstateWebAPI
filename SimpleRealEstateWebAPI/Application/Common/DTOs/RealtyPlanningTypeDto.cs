@@ -9,9 +9,7 @@ namespace Application.Common.DTOs
 {
     public class RealtyPlanningTypeDto
     {
-        public PlanningTypeEnum PlanningTypeId { get; set; }
-        public Guid RealtyId { get; set; }
-
+        public Guid Id { get; set; }
         public PlanningTypeDto PlanningType { get; set; }
 
     }

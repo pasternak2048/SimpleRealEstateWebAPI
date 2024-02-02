@@ -25,6 +25,7 @@ namespace Domain.Entities
         public int? BathCount { get; set; }
         public DateTimeOffset? BuildDate { get; set; }
         public RealtyStatusEnum RealtyStatusId { get; set; } = RealtyStatusEnum.New;
+        public bool IsDeleted { get; set; } = false;
 
         public virtual RealtyType RealtyType { get; set; }
         public virtual Location Location { get; set; }

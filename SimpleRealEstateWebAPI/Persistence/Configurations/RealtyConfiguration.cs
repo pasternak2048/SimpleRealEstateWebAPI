@@ -10,6 +10,8 @@ namespace Persistence.Configurations
         {
             builder.Property(e => e.Id).HasColumnName("ID");
 
+            builder.Property(e=>e.IsDeleted).HasDefaultValue(false);
+
             builder.HasOne(e => e.RealtyStatus)
                 .WithMany(p => p.Realties)
                 .HasForeignKey(e => e.RealtyStatusId);

@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
 
 namespace Application.Features.RealtyPlanningTypeFeatures.CreateRealtyPlanningType
 {
-    internal class CreateRealtyPlanningTypeValidator
+    public class CreateRealtyPlanningTypeValidator : AbstractValidator<CreateRealtyPlanningTypeRequest>
     {
+        public CreateRealtyPlanningTypeValidator()
+        {
+            RuleFor(x => x.RealtyId).NotEmpty().WithMessage("RealtyID mustn`t be empty.");
+            RuleFor(x => x.PlanningTypeId).NotEmpty().WithMessage("PlanningTypeID mustn`t be empty.");
+        }
     }
 }
