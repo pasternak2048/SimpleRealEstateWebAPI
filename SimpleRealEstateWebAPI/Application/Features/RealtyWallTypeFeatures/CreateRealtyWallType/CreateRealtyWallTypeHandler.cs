@@ -5,21 +5,22 @@ using Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Features.RealtyPlanningTypeFeatures.CreateRealtyPlanningType
+namespace Application.Features.RealtyWallTypeFeatures.CreateRealtyWallType
 {
-    public class CreateRealtyPlanningTypeHandler : IRequestHandler<CreateRealtyPlanningTypeRequest>
+    public class CreateRealtyWallTypeHandler : IRequestHandler<CreateRealtyWallTypeRequest>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
         private readonly ICurrentUserService _currentUserService;
 
-        public CreateRealtyPlanningTypeHandler(IApplicationDbContext context, IMapper mapper, ICurrentUserService currentUserService)
+        public CreateRealtyWallTypeHandler(IApplicationDbContext context, IMapper mapper, ICurrentUserService currentUserService)
         {
             _context = context;
             _mapper = mapper;
             _currentUserService = currentUserService;
         }
-        public async Task<Unit> Handle(CreateRealtyPlanningTypeRequest request, CancellationToken cancellationToken)
+
+        public async Task<Unit> Handle(CreateRealtyWallTypeRequest request, CancellationToken cancellationToken)
         {
             var userId = _currentUserService.UserId;
             var userRole = _currentUserService.UserRole;
@@ -36,26 +37,26 @@ namespace Application.Features.RealtyPlanningTypeFeatures.CreateRealtyPlanningTy
                 throw new UnauthorizedAccessException("Unauthorized.");
             }
 
-            var planningType = await _context.PlanningTypes.FirstOrDefaultAsync(x => x.Id == request.PlanningTypeId, cancellationToken);
+            var wallType = await _context.WallTypes.FirstOrDefaultAsync(x => x.Id == request.WallTypeId, cancellationToken);
 
-            if (planningType == null)
+            if (wallType == null)
             {
-                throw new NotFoundException($"Planning Type with ID {request.PlanningTypeId} not found.");
+                throw new NotFoundException($"Wall Type with ID {request.WallTypeId} not found.");
             }
 
-            var realtyPlanningType = await _context.RealtyPlanningTypes
-                .FirstOrDefaultAsync(x => x.PlanningTypeId == request.PlanningTypeId
+            var realtyWallType = await _context.RealtyWallTypes
+                .FirstOrDefaultAsync(x => x.WallTypeId == request.WallTypeId
                 && x.RealtyId == request.RealtyId
                 && !x.IsDeleted, cancellationToken);
 
-            if (realtyPlanningType != null)
+            if (realtyWallType != null)
             {
-                throw new AlreadyExistException($"Realty Planning Type {request.PlanningTypeId} for Realty {request.RealtyId} already exist.");
+                throw new AlreadyExistException($"Realty Wall Type {request.WallTypeId} for Realty {request.RealtyId} already exist.");
             }
 
-            realtyPlanningType = _mapper.Map<RealtyPlanningType>(request);
+            realtyWallType = _mapper.Map<RealtyWallType>(request);
 
-            _context.RealtyPlanningTypes.Add(realtyPlanningType);
+            _context.RealtyWallTypes.Add(realtyWallType);
 
             await _context.SaveChangesAsync(cancellationToken);
 

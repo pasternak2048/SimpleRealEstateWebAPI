@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Reflection.Emit;
 
 namespace Persistence.Configurations
 {
@@ -8,7 +9,9 @@ namespace Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<RealtyHeatingType> builder)
         {
-            builder.HasKey(e => new { e.RealtyId, e.HeatingTypeId });
+            builder.Property(e => e.Id).HasColumnName("ID");
+
+            builder.Property(e => e.IsDeleted).HasDefaultValue(false);
 
             builder.HasOne(e => e.Realty)
                 .WithMany(p => p.RealtyHeatingTypes)

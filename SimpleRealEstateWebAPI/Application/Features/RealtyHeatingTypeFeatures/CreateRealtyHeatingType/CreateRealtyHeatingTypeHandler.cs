@@ -5,21 +5,22 @@ using Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Features.RealtyPlanningTypeFeatures.CreateRealtyPlanningType
+namespace Application.Features.RealtyHeatingTypeFeatures.CreateRealtyHeatingType
 {
-    public class CreateRealtyPlanningTypeHandler : IRequestHandler<CreateRealtyPlanningTypeRequest>
+    public class CreateRealtyHeatingTypeHandler : IRequestHandler<CreateRealtyHeatingTypeRequest>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
         private readonly ICurrentUserService _currentUserService;
 
-        public CreateRealtyPlanningTypeHandler(IApplicationDbContext context, IMapper mapper, ICurrentUserService currentUserService)
+        public CreateRealtyHeatingTypeHandler(IApplicationDbContext context, IMapper mapper, ICurrentUserService currentUserService)
         {
             _context = context;
             _mapper = mapper;
             _currentUserService = currentUserService;
         }
-        public async Task<Unit> Handle(CreateRealtyPlanningTypeRequest request, CancellationToken cancellationToken)
+
+        public async Task<Unit> Handle(CreateRealtyHeatingTypeRequest request, CancellationToken cancellationToken)
         {
             var userId = _currentUserService.UserId;
             var userRole = _currentUserService.UserRole;
@@ -36,26 +37,26 @@ namespace Application.Features.RealtyPlanningTypeFeatures.CreateRealtyPlanningTy
                 throw new UnauthorizedAccessException("Unauthorized.");
             }
 
-            var planningType = await _context.PlanningTypes.FirstOrDefaultAsync(x => x.Id == request.PlanningTypeId, cancellationToken);
+            var heatingType = await _context.HeatingTypes.FirstOrDefaultAsync(x => x.Id == request.HeatingTypeId, cancellationToken);
 
-            if (planningType == null)
+            if (heatingType == null)
             {
-                throw new NotFoundException($"Planning Type with ID {request.PlanningTypeId} not found.");
+                throw new NotFoundException($"Heating Type with ID {request.HeatingTypeId} not found.");
             }
 
-            var realtyPlanningType = await _context.RealtyPlanningTypes
-                .FirstOrDefaultAsync(x => x.PlanningTypeId == request.PlanningTypeId
+            var realtyHeatingType = await _context.RealtyHeatingTypes
+                .FirstOrDefaultAsync(x => x.HeatingTypeId == request.HeatingTypeId
                 && x.RealtyId == request.RealtyId
                 && !x.IsDeleted, cancellationToken);
 
-            if (realtyPlanningType != null)
+            if (realtyHeatingType != null)
             {
-                throw new AlreadyExistException($"Realty Planning Type {request.PlanningTypeId} for Realty {request.RealtyId} already exist.");
+                throw new AlreadyExistException($"Realty Heating Type {request.HeatingTypeId} for Realty {request.RealtyId} already exist.");
             }
 
-            realtyPlanningType = _mapper.Map<RealtyPlanningType>(request);
+            realtyHeatingType = _mapper.Map<RealtyHeatingType>(request);
 
-            _context.RealtyPlanningTypes.Add(realtyPlanningType);
+            _context.RealtyHeatingTypes.Add(realtyHeatingType);
 
             await _context.SaveChangesAsync(cancellationToken);
 

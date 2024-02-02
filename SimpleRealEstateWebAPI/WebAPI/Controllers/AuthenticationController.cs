@@ -38,9 +38,13 @@ namespace WebAPI.Controllers
 
             var roleResult = await _userManager.AddToRoleAsync(user, "Client");
 
-            if (!roleResult.Succeeded) return BadRequest(result.Errors);
+            if (!roleResult.Succeeded) return BadRequest(roleResult.Errors);
 
             var userRoles = await _userManager.GetRolesAsync(user);
+
+            var setEmailResult = await _userManager.SetEmailAsync(user, registerDto.UserName);
+
+            if (!setEmailResult.Succeeded) return BadRequest(setEmailResult.Errors);
 
             var token = _jwtTokenGenerator.GenerateToken(user.Id, user.UserName, user.FirstName, user.LastName, user.Email, userRoles.FirstOrDefault());
 

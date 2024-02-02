@@ -8,7 +8,9 @@ namespace Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<RealtyPlanningType> builder)
         {
-            builder.HasKey(e => new { e.RealtyId, e.PlanningTypeId });
+            builder.Property(e => e.Id).HasColumnName("ID");
+
+            builder.Property(e => e.IsDeleted).HasDefaultValue(false);
 
             builder.HasOne(e => e.Realty)
                 .WithMany(p => p.RealtyPlanningTypes)

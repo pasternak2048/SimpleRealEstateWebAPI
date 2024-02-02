@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence.Context;
 
@@ -11,9 +12,10 @@ using Persistence.Context;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240202035822_DeleteStatusRemoved")]
+    partial class DeleteStatusRemoved
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -232,11 +234,6 @@ namespace Persistence.Migrations
                     b.Property<int?>("FloorCount")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
                     b.Property<bool?>("IsFirstFloor")
                         .HasColumnType("bit");
 
@@ -278,86 +275,30 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.RealtyHeatingType", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("ID");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<Guid>("CreatedById")
+                    b.Property<Guid>("RealtyId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("HeatingTypeId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
-                    b.Property<DateTimeOffset?>("ModifiedAt")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<Guid?>("ModifiedById")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("RealtyId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedById");
+                    b.HasKey("RealtyId", "HeatingTypeId");
 
                     b.HasIndex("HeatingTypeId");
-
-                    b.HasIndex("ModifiedById");
-
-                    b.HasIndex("RealtyId");
 
                     b.ToTable("RealtyHeatingTypes");
                 });
 
             modelBuilder.Entity("Domain.Entities.RealtyPlanningType", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("ID");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<Guid>("CreatedById")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
-                    b.Property<DateTimeOffset?>("ModifiedAt")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<Guid?>("ModifiedById")
+                    b.Property<Guid>("RealtyId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("PlanningTypeId")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("RealtyId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedById");
-
-                    b.HasIndex("ModifiedById");
+                    b.HasKey("RealtyId", "PlanningTypeId");
 
                     b.HasIndex("PlanningTypeId");
-
-                    b.HasIndex("RealtyId");
 
                     b.ToTable("RealtyPlanningTypes");
                 });
@@ -446,41 +387,13 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.RealtyWallType", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("ID");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<Guid>("CreatedById")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
-                    b.Property<DateTimeOffset?>("ModifiedAt")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<Guid?>("ModifiedById")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("RealtyId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("WallTypeId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedById");
-
-                    b.HasIndex("ModifiedById");
-
-                    b.HasIndex("RealtyId");
+                    b.HasKey("RealtyId", "WallTypeId");
 
                     b.HasIndex("WallTypeId");
 
@@ -766,7 +679,7 @@ namespace Persistence.Migrations
                     b.HasOne("Domain.Identity.AppUser", null)
                         .WithMany()
                         .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.Location", "Location")
@@ -777,8 +690,7 @@ namespace Persistence.Migrations
 
                     b.HasOne("Domain.Identity.AppUser", null)
                         .WithMany()
-                        .HasForeignKey("ModifiedById")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .HasForeignKey("ModifiedById");
 
                     b.HasOne("Domain.Entities.RealtyStatus", "RealtyStatus")
                         .WithMany("Realties")
@@ -801,22 +713,11 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.RealtyHeatingType", b =>
                 {
-                    b.HasOne("Domain.Identity.AppUser", null)
-                        .WithMany()
-                        .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("Domain.Entities.HeatingType", "HeatingType")
                         .WithMany("RealtyHeatingTypes")
                         .HasForeignKey("HeatingTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Domain.Identity.AppUser", null)
-                        .WithMany()
-                        .HasForeignKey("ModifiedById")
-                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Domain.Entities.Realty", "Realty")
                         .WithMany("RealtyHeatingTypes")
@@ -831,17 +732,6 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.RealtyPlanningType", b =>
                 {
-                    b.HasOne("Domain.Identity.AppUser", null)
-                        .WithMany()
-                        .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Identity.AppUser", null)
-                        .WithMany()
-                        .HasForeignKey("ModifiedById")
-                        .OnDelete(DeleteBehavior.NoAction);
-
                     b.HasOne("Domain.Entities.PlanningType", "PlanningType")
                         .WithMany("RealtyPlanningTypes")
                         .HasForeignKey("PlanningTypeId")
@@ -861,17 +751,6 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.RealtyWallType", b =>
                 {
-                    b.HasOne("Domain.Identity.AppUser", null)
-                        .WithMany()
-                        .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Identity.AppUser", null)
-                        .WithMany()
-                        .HasForeignKey("ModifiedById")
-                        .OnDelete(DeleteBehavior.NoAction);
-
                     b.HasOne("Domain.Entities.Realty", "Realty")
                         .WithMany("RealtyWallTypes")
                         .HasForeignKey("RealtyId")

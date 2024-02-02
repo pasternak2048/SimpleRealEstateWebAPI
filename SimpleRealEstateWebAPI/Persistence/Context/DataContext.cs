@@ -56,13 +56,15 @@ namespace Persistence.Context
                     entityType.AddForeignKey(
                         new[] { entityType.FindProperty(nameof(AuditableEntity.CreatedById)) },
                         userMetadata.FindPrimaryKey(),
-                        userMetadata);
+                        userMetadata)
+                        .DeleteBehavior = DeleteBehavior.NoAction;
 
 
                     entityType.AddForeignKey(
                         new[] { entityType.FindProperty(nameof(AuditableEntity.ModifiedById)) },
                         userMetadata.FindPrimaryKey(),
-                        userMetadata);
+                        userMetadata)
+                        .DeleteBehavior = DeleteBehavior.NoAction;
                 }
         }
     }

@@ -2,7 +2,12 @@
 using Application.Features.RealtyFeatures.CreateRealty;
 using Application.Features.RealtyFeatures.EditRealty;
 using Application.Features.RealtyFeatures.GetRealties;
+using Application.Features.RealtyHeatingTypeFeatures.CreateRealtyHeatingType;
+using Application.Features.RealtyHeatingTypeFeatures.DeleteRealtyHeatingType;
 using Application.Features.RealtyPlanningTypeFeatures.CreateRealtyPlanningType;
+using Application.Features.RealtyPlanningTypeFeatures.DeleteRealtyPlanningType;
+using Application.Features.RealtyWallTypeFeatures.CreateRealtyWallType;
+using Application.Features.RealtyWallTypeFeatures.DeleteRealtyWallType;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -45,6 +50,41 @@ namespace WebAPI.Controllers
 
         [HttpPost("RealtyPlanningType")]
         public async Task<ActionResult> CreateRealtyPlanningType([FromQuery] CreateRealtyPlanningTypeRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpDelete("RealtyPlanningType")]
+        public async Task<ActionResult> DeleteRealtyPlanningType([FromQuery] DeleteRealtyPlanningTypeRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpPost("RealtyHeatingType")]
+        public async Task<ActionResult> CreateRealtyHeatingType([FromQuery] CreateRealtyHeatingTypeRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpDelete("RealtyHeatingType")]
+        public async Task<ActionResult> DeleteRealtyHeatingType([FromQuery] DeleteRealtyHeatingTypeRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpPost("RealtyWallType")]
+        public async Task<ActionResult> CreateRealtyWallType([FromQuery] CreateRealtyWallTypeRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpDelete("RealtyWallType")]
+        public async Task<ActionResult> DeleteRealtyWallType([FromQuery] DeleteRealtyWallTypeRequest request)
         {
             var response = await _mediator.Send(request);
             return Ok(response);
