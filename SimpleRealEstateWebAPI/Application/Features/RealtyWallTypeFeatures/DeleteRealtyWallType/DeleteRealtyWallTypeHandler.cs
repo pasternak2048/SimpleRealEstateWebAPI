@@ -24,30 +24,22 @@ namespace Application.Features.RealtyWallTypeFeatures.DeleteRealtyWallType
             var userId = _currentUserService.UserId;
             var userRole = _currentUserService.UserRole;
 
-            var realty = await _context.Realties
-                .Include(x => x.RealtyWallTypes)
-                .FirstOrDefaultAsync(x => x.Id == request.RealtyId && !x.IsDeleted, cancellationToken);
+            var realtyWallType = await _context.RealtyWallTypes.Where(x => x.Id == request.RealtyWallTypeId && !x.IsDeleted)
+                .FirstOrDefaultAsync(cancellationToken);
 
-            if (realty == null)
+            if (realtyWallType == null)
             {
-                throw new NotFoundException($"Realty with ID {request.RealtyId} not found.");
+                throw new NotFoundException($"RealtyWallType with RealtyWallTypeID {request.RealtyWallTypeId} not found.");
             }
 
-            if (userRole == "Client" && userId != realty.CreatedById)
+            if (userRole == "Client" && userId != realtyWallType.CreatedById)
             {
                 throw new UnauthorizedAccessException("Unauthorized.");
             }
 
-            var realtyWallType = realty.RealtyWallTypes.FirstOrDefault(x => x.WallTypeId == request.WallTypeId
-            && x.RealtyId == request.RealtyId
-            && !x.IsDeleted);
+            realtyWallType.IsDeleted = true;
 
-            if (realtyWallType == null)
-            {
-                throw new NotFoundException($"RealtyWallType with RealtyID {request.RealtyId} and WallTypeID {request.WallTypeId} not found.");
-            }
-
-            _context.RealtyWallTypes.Remove(realtyWallType);
+            _context.RealtyWallTypes.Update(realtyWallType);
 
             await _context.SaveChangesAsync(cancellationToken);
 

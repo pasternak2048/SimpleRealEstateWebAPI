@@ -50,7 +50,7 @@ namespace Application.Features.RealtyPlanningTypeFeatures.CreateRealtyPlanningTy
 
             if (realtyPlanningType != null)
             {
-                throw new AlreadyExistException($"Realty Planning Type with ID {request.RealtyId} , {request.PlanningTypeId} already exist.");
+                throw new AlreadyExistException($"Realty Planning Type {request.PlanningTypeId} for Realty {request.RealtyId} already exist.");
             }
 
             realtyPlanningType = _mapper.Map<RealtyPlanningType>(request);

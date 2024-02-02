@@ -51,7 +51,7 @@ namespace Application.Features.RealtyHeatingTypeFeatures.CreateRealtyHeatingType
 
             if (realtyHeatingType != null)
             {
-                throw new AlreadyExistException($"Realty Heating Type with ID {request.RealtyId} , {request.HeatingTypeId} already exist.");
+                throw new AlreadyExistException($"Realty Heating Type {request.HeatingTypeId} for Realty {request.RealtyId} already exist.");
             }
 
             realtyHeatingType = _mapper.Map<RealtyHeatingType>(request);

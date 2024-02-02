@@ -1,6 +1,7 @@
 ﻿using Application.Common.Exceptions;
 using Application.Common.Interfaces;
 using AutoMapper;
+using Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,30 +25,22 @@ namespace Application.Features.RealtyHeatingTypeFeatures.DeleteRealtyHeatingType
             var userId = _currentUserService.UserId;
             var userRole = _currentUserService.UserRole;
 
-            var realty = await _context.Realties
-                .Include(x => x.RealtyHeatingTypes)
-                .FirstOrDefaultAsync(x => x.Id == request.RealtyId && !x.IsDeleted, cancellationToken);
+            var realtyHeatingType = await _context.RealtyHeatingTypes.Where(x => x.Id == request.RealtyHeatingTypeId && !x.IsDeleted)
+                .FirstOrDefaultAsync(cancellationToken);
 
-            if (realty == null)
+            if (realtyHeatingType == null)
             {
-                throw new NotFoundException($"Realty with ID {request.RealtyId} not found.");
+                throw new NotFoundException($"RealtyHeatingType with RealtyHeatingTypeID {request.RealtyHeatingTypeId} not found.");
             }
 
-            if (userRole == "Client" && userId != realty.CreatedById)
+            if (userRole == "Client" && userId != realtyHeatingType.CreatedById)
             {
                 throw new UnauthorizedAccessException("Unauthorized.");
             }
 
-            var realtyHeatingType = realty.RealtyHeatingTypes.FirstOrDefault(x => x.HeatingTypeId == request.HeatingTypeId
-            && x.RealtyId == request.RealtyId
-            && !x.IsDeleted);
+            realtyHeatingType.IsDeleted = true;
 
-            if (realtyHeatingType == null)
-            {
-                throw new NotFoundException($"RealtyHeatingType with RealtyID {request.RealtyId} and HeatingTypeID {request.HeatingTypeId} not found.");
-            }
-
-            _context.RealtyHeatingTypes.Remove(realtyHeatingType);
+            _context.RealtyHeatingTypes.Update(realtyHeatingType);
 
             await _context.SaveChangesAsync(cancellationToken);
 

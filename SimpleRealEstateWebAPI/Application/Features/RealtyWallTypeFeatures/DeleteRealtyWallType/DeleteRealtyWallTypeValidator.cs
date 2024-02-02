@@ -6,8 +6,7 @@ namespace Application.Features.RealtyWallTypeFeatures.DeleteRealtyWallType
     {
         public DeleteRealtyWallTypeValidator()
         {
-            RuleFor(x => x.RealtyId).NotEmpty().WithMessage("RealtyID mustn`t be empty.");
-            RuleFor(x => x.WallTypeId).NotEmpty().WithMessage("WallTypeID mustn`t be empty.");
+            RuleFor(x => x.RealtyWallTypeId).NotEmpty().WithMessage("RealtyWallTypeID mustn`t be empty.");
         }
     }
 }

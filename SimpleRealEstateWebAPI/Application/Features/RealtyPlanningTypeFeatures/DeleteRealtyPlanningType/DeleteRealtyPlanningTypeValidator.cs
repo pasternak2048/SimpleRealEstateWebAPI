@@ -6,8 +6,7 @@ namespace Application.Features.RealtyPlanningTypeFeatures.DeleteRealtyPlanningTy
     {
         public DeleteRealtyPlanningTypeValidator()
         {
-            RuleFor(x => x.RealtyId).NotEmpty().WithMessage("RealtyID mustn`t be empty.");
-            RuleFor(x => x.PlanningTypeId).NotEmpty().WithMessage("PlanningTypeID mustn`t be empty.");
+            RuleFor(x => x.RealtyPlanningTypeId).NotEmpty().WithMessage("RealtyPlanningTypeID mustn`t be empty.");
         }
     }
 }

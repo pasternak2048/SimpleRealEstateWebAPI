@@ -51,7 +51,7 @@ namespace Application.Features.RealtyWallTypeFeatures.CreateRealtyWallType
 
             if (realtyWallType != null)
             {
-                throw new AlreadyExistException($"Realty Wall Type with ID {request.RealtyId} , {request.WallTypeId} already exist.");
+                throw new AlreadyExistException($"Realty Wall Type {request.WallTypeId} for Realty {request.RealtyId} already exist.");
             }
 
             realtyWallType = _mapper.Map<RealtyWallType>(request);

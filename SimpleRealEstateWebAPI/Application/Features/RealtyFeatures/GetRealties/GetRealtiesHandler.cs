@@ -4,8 +4,10 @@ using Application.Common.Models;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Dapper;
+using Domain.Entities;
 using MediatR;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.RealtyFeatures.GetRealties
 {
@@ -24,7 +26,9 @@ namespace Application.Features.RealtyFeatures.GetRealties
 
         public async Task<PaginatedList<GetRealtiesResponse>> Handle(GetRealtiesRequest request, CancellationToken cancellationToken)
         {
-            var realtiesQueryable = _context.Realties.AsQueryable().Where(x=>!x.IsDeleted);
+            var realtiesQueryable = _context.Realties
+                .Where(x=>!x.IsDeleted)
+                .AsQueryable();
 
             var realtiesPaginated = await realtiesQueryable
                   .ProjectTo<GetRealtiesResponse>(_mapper.ConfigurationProvider)

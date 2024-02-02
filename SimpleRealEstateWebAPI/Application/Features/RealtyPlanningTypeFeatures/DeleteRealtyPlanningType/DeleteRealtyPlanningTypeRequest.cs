@@ -1,11 +1,9 @@
-﻿using Domain.Enums;
-using MediatR;
+﻿using MediatR;
 
 namespace Application.Features.RealtyPlanningTypeFeatures.DeleteRealtyPlanningType
 {
     public class DeleteRealtyPlanningTypeRequest : IRequest
     {
-        public PlanningTypeEnum PlanningTypeId { get; set; }
-        public Guid RealtyId { get; set; }
+        public Guid RealtyPlanningTypeId { get; set; }
     }
 }

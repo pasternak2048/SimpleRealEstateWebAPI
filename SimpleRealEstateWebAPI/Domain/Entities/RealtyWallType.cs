@@ -5,6 +5,7 @@ namespace Domain.Entities
 {
     public class RealtyWallType : AuditableEntity
     {
+        public Guid Id { get; set; }
         public Guid RealtyId { get; set; }
         public WallTypeEnum WallTypeId { get; set; }
         public bool IsDeleted { get; set; } = false;

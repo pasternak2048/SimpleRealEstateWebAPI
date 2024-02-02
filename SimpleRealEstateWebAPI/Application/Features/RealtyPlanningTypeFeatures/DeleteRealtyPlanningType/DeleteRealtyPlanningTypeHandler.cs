@@ -24,30 +24,22 @@ namespace Application.Features.RealtyPlanningTypeFeatures.DeleteRealtyPlanningTy
             var userId = _currentUserService.UserId;
             var userRole = _currentUserService.UserRole;
 
-            var realty = await _context.Realties
-                .Include(x=>x.RealtyPlanningTypes)
-                .FirstOrDefaultAsync(x => x.Id == request.RealtyId && !x.IsDeleted, cancellationToken);
+            var realtyPlanningType = await _context.RealtyPlanningTypes.Where(x => x.Id == request.RealtyPlanningTypeId && !x.IsDeleted)
+                .FirstOrDefaultAsync(cancellationToken);
 
-            if (realty == null)
+            if (realtyPlanningType == null)
             {
-                throw new NotFoundException($"Realty with ID {request.RealtyId} not found.");
+                throw new NotFoundException($"RealtyPlanningType with RealtyPlanningTypeID {request.RealtyPlanningTypeId} not found.");
             }
 
-            if (userRole == "Client" && userId != realty.CreatedById)
+            if (userRole == "Client" && userId != realtyPlanningType.CreatedById)
             {
                 throw new UnauthorizedAccessException("Unauthorized.");
             }
 
-            var realtyPlanningType = realty.RealtyPlanningTypes.FirstOrDefault(x => x.PlanningTypeId == request.PlanningTypeId
-            && x.RealtyId == request.RealtyId
-            && !x.IsDeleted);
+            realtyPlanningType.IsDeleted = true;
 
-            if(realtyPlanningType == null)
-            {
-                throw new NotFoundException($"RealtyPlanningType with RealtyID {request.RealtyId} and PlanningTypeID {request.PlanningTypeId} not found.");
-            }
-
-            _context.RealtyPlanningTypes.Remove(realtyPlanningType);
+            _context.RealtyPlanningTypes.Update(realtyPlanningType);
 
             await _context.SaveChangesAsync(cancellationToken);
 

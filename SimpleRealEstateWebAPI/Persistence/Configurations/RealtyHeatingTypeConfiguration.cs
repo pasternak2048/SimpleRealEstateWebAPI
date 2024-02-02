@@ -9,7 +9,7 @@ namespace Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<RealtyHeatingType> builder)
         {
-            builder.HasKey(e => new { e.RealtyId, e.HeatingTypeId });
+            builder.Property(e => e.Id).HasColumnName("ID");
 
             builder.Property(e => e.IsDeleted).HasDefaultValue(false);
 
