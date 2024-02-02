@@ -24,7 +24,7 @@ namespace Application.Features.RealtyFeatures.GetRealties
 
         public async Task<PaginatedList<GetRealtiesResponse>> Handle(GetRealtiesRequest request, CancellationToken cancellationToken)
         {
-            var realtiesQueryable = _context.Realties.AsQueryable();
+            var realtiesQueryable = _context.Realties.AsQueryable().Where(x=>!x.IsDeleted);
 
             var realtiesPaginated = await realtiesQueryable
                   .ProjectTo<GetRealtiesResponse>(_mapper.ConfigurationProvider)

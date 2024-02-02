@@ -26,7 +26,7 @@ namespace Application.Features.RealtyPlanningTypeFeatures.DeleteRealtyPlanningTy
 
             var realty = await _context.Realties
                 .Include(x=>x.RealtyPlanningTypes)
-                .FirstOrDefaultAsync(x => x.Id == request.RealtyId, cancellationToken);
+                .FirstOrDefaultAsync(x => x.Id == request.RealtyId && !x.IsDeleted, cancellationToken);
 
             if (realty == null)
             {
@@ -38,7 +38,9 @@ namespace Application.Features.RealtyPlanningTypeFeatures.DeleteRealtyPlanningTy
                 throw new UnauthorizedAccessException("Unauthorized.");
             }
 
-            var realtyPlanningType = realty.RealtyPlanningTypes.FirstOrDefault(x => x.PlanningTypeId == request.PlanningTypeId && x.RealtyId == request.RealtyId);
+            var realtyPlanningType = realty.RealtyPlanningTypes.FirstOrDefault(x => x.PlanningTypeId == request.PlanningTypeId
+            && x.RealtyId == request.RealtyId
+            && !x.IsDeleted);
 
             if(realtyPlanningType == null)
             {

@@ -26,7 +26,7 @@ namespace Application.Features.RealtyWallTypeFeatures.DeleteRealtyWallType
 
             var realty = await _context.Realties
                 .Include(x => x.RealtyWallTypes)
-                .FirstOrDefaultAsync(x => x.Id == request.RealtyId, cancellationToken);
+                .FirstOrDefaultAsync(x => x.Id == request.RealtyId && !x.IsDeleted, cancellationToken);
 
             if (realty == null)
             {
@@ -38,7 +38,9 @@ namespace Application.Features.RealtyWallTypeFeatures.DeleteRealtyWallType
                 throw new UnauthorizedAccessException("Unauthorized.");
             }
 
-            var realtyWallType = realty.RealtyWallTypes.FirstOrDefault(x => x.WallTypeId == request.WallTypeId && x.RealtyId == request.RealtyId);
+            var realtyWallType = realty.RealtyWallTypes.FirstOrDefault(x => x.WallTypeId == request.WallTypeId
+            && x.RealtyId == request.RealtyId
+            && !x.IsDeleted);
 
             if (realtyWallType == null)
             {

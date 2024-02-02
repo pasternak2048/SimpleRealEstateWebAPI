@@ -26,7 +26,7 @@ namespace Application.Features.RealtyHeatingTypeFeatures.DeleteRealtyHeatingType
 
             var realty = await _context.Realties
                 .Include(x => x.RealtyHeatingTypes)
-                .FirstOrDefaultAsync(x => x.Id == request.RealtyId, cancellationToken);
+                .FirstOrDefaultAsync(x => x.Id == request.RealtyId && !x.IsDeleted, cancellationToken);
 
             if (realty == null)
             {
@@ -38,7 +38,9 @@ namespace Application.Features.RealtyHeatingTypeFeatures.DeleteRealtyHeatingType
                 throw new UnauthorizedAccessException("Unauthorized.");
             }
 
-            var realtyHeatingType = realty.RealtyHeatingTypes.FirstOrDefault(x => x.HeatingTypeId == request.HeatingTypeId && x.RealtyId == request.RealtyId);
+            var realtyHeatingType = realty.RealtyHeatingTypes.FirstOrDefault(x => x.HeatingTypeId == request.HeatingTypeId
+            && x.RealtyId == request.RealtyId
+            && !x.IsDeleted);
 
             if (realtyHeatingType == null)
             {

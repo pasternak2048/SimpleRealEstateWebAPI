@@ -31,7 +31,7 @@ namespace Application.Features.RealtyFeatures.EditRealty
             var userRole = _currentUserService.UserRole;
 
             var realty = await _context.Realties
-                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+                .FirstOrDefaultAsync(x => x.Id == request.Id && !x.IsDeleted, cancellationToken);
 
             if (realty == null)
             {

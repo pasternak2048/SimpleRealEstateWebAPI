@@ -10,6 +10,8 @@ namespace Persistence.Configurations
         {
             builder.HasKey(e => new { e.RealtyId, e.PlanningTypeId });
 
+            builder.Property(e => e.IsDeleted).HasDefaultValue(false);
+
             builder.HasOne(e => e.Realty)
                 .WithMany(p => p.RealtyPlanningTypes)
                 .HasForeignKey(e => e.RealtyId);

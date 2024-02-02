@@ -25,7 +25,7 @@ namespace Application.Features.RealtyWallTypeFeatures.CreateRealtyWallType
             var userId = _currentUserService.UserId;
             var userRole = _currentUserService.UserRole;
 
-            var realty = await _context.Realties.FirstOrDefaultAsync(x => x.Id == request.RealtyId, cancellationToken);
+            var realty = await _context.Realties.FirstOrDefaultAsync(x => x.Id == request.RealtyId && !x.IsDeleted, cancellationToken);
 
             if (realty == null)
             {
@@ -45,7 +45,9 @@ namespace Application.Features.RealtyWallTypeFeatures.CreateRealtyWallType
             }
 
             var realtyWallType = await _context.RealtyWallTypes
-                .FirstOrDefaultAsync(x => x.WallTypeId == request.WallTypeId && x.RealtyId == request.RealtyId, cancellationToken);
+                .FirstOrDefaultAsync(x => x.WallTypeId == request.WallTypeId
+                && x.RealtyId == request.RealtyId
+                && !x.IsDeleted, cancellationToken);
 
             if (realtyWallType != null)
             {
