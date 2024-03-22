@@ -15,13 +15,12 @@ namespace Application.Features.RealtyFeatures.GetRealties
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
-        private readonly ISqlConnectionService _connectionService;
+        //private readonly ISqlConnectionService _connectionService;
 
-        public GetRealtiesHandler(IApplicationDbContext context, IMapper mapper, ISqlConnectionService connectionService)
+        public GetRealtiesHandler(IApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
-            _connectionService = connectionService;
         }
 
         public async Task<PaginatedList<GetRealtiesResponse>> Handle(GetRealtiesRequest request, CancellationToken cancellationToken)
